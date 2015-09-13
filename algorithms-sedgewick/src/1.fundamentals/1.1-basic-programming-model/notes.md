@@ -21,7 +21,7 @@ _Statements_
 __Java platform specifics__
 
 - class <name> should be in file <name>.java
-- compiled to jvm bytecode as <name>.class
+- compiled to jvm byte code as <name>.class
 - execution entry/exit point is main()
 - strongly typed
 - block scoped
@@ -36,7 +36,7 @@ $ java Example
 
 __Java arrays__
 
-an abstract collection of primative data types
+an abstract collection of primitive data types
 - passed by reference (e.g. a[i] = 2; a = b; b[i] // 2)
 - support for two-dimensional arrays
 ```java
@@ -58,7 +58,7 @@ __Recursion__
 
 1. establish base case (conditional + return statement)
 2. alter arguments to converge on base case
-3. _should not address overlapping subproblems_
+3. _should not address overlapping sub-problems_
 
 __Java best practices__
 
@@ -79,9 +79,9 @@ __Questions__
 1. Does java support passing functions as parameters?
 2. What are the fundamentals of object-oriented programming?
 3. What is a stack and a heap and how do they interact?
-4. What does 'recursion should not address subproblems that overlap' mean?
+4. What does 'recursion should not address sub-problems that overlap' mean?
 5. What is variance and standard deviation in statistics?
-6. What is a gaussian, bernoulli, and discrete function?
+6. What is a Gaussian, Bernoulli, and discrete function?
 7. Why does the value of Math.abs(-2147483648) = -2147483648?
 8. Why is -14 % 3 = -2 by 14 % -3 = 2?
 9. What is a first class function/object, does java support this?
