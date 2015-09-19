@@ -45,3 +45,130 @@ public static void main (String args[]) {
     System.out.println(args[0] == args[1] && args[1] == args[2] ? "equal" : "not equal");
 }
 ```
+
+__1.1.4 What (if anything) is wrong with each of the following statements?__
+
+```java
+if (a > b) then c = 0;       // syntax error, no 'then' keyword in java
+if a > b { c = 0; }          // syntax error, if expression needs parentheses
+if (a > b) c = 0;            // ok
+if (a > b) c = 0 else b = 0; // syntax error, assignment in if body needs statement terminator
+```
+
+__1.1.5 Write a code fragment that prints true if the double variables x and y are both strictly between 0 and 1 and false otherwise__
+
+```java
+public static void range (double x, double y, double low, double high) {
+    System.out.println( low < x && x < high && low < y && y < high ? "true" : "false");
+}
+range(0.5, 0.2, 0, 1); // => "true"
+```
+
+__1.1.6 What does the following program print?__
+
+```java
+int f = 0;
+int g = 1;
+for (int i = 0; i <= 15; i++) {
+    StdOut.println(f);
+    f = f + g;
+    g = f - g;
+}
+```
+
+It prints the first 15 numbers of the fibonacci sequence
+
+__1.1.7 Give the value printed by each of the following code fragments__
+
+```java
+double t = 9.0;
+while (Math.abs(t - 9.0/t) > .001)
+    t = (9.0/t + t) / 2.0;
+StdOut.printf("%.5f\n", t); // => 3.00009
+```
+
+The answer is close to the square root of 9 using newton's approximation method
+
+```java
+int sum = 0;
+for (int i = 1; i < 1000; i++)
+    for (int j = 0; j < i; j++)
+        sum++;
+StdOut.println(sum); // => 499500
+```
+
+This can be expressed as an arithmetic series of {1,2,3,...,999}
+n(n+1)/2 where n=999
+
+```java
+int N = 1000;
+int sum = 0;
+for(int i = 1; i < 1000; i*=2)
+    for (int j = 0; j < N; j++)
+        sum++;
+StdOut.println(sum); // => 10000
+```
+
+the number of iterations of the outer loop can be expressed as ceiling(log2(1000))) = 10
+
+__1.1.8 What do each of the following print?__
+
+```java
+System.out.println('b'); // => 'b', prints the char literal 'b'
+System.out.println('b' + 'c'); // => 197, addition promotes char to their respective int char codes
+System.out.println((char) ('a' + 4)); // => 'e', char code 97 + 4 = 101 which casted into char is 'e'
+```
+
+__1.1.9 Write a code fragment that puts the binary representation of a positive integer N
+into a String s__
+
+```java
+public static binaryString(int n) {
+    String s = "";
+    for(int i; i < n; n/=2)
+        s = (n % 2) + s;
+}
+```
+
+halve the number on each successive iteration, each new char added to string represents a power of two
+the value of the char is '1' if the number is odd, '0' if even
+
+__1.1.10 What is wrong with the following code fragment?__
+
+```java
+int[] a;
+for (int i = 0; i < 10; i++)
+    a[i] = i * i;
+```
+
+The array does not allocate any memory, a valid declaration would be int[] a = new int[10];
+
+__1.1.11 Write a code fragment that prints the contents of a two-dimensional boolean array, using * to represent true and a space to represent false. Include row and column numbers.__
+
+```java
+public class print2D {
+    public static void main(String args[]) {
+        boolean[][] b = new boolean[][] {
+            new boolean[] { true, false, true},
+            new boolean[] { false, true, false},
+            new boolean[] { true, true, false}
+       };
+       int rows = b.length;
+       int column_size = 3;
+       String s = "";
+       StdOut.print("  ");
+       for (int i=0; i < rows; i++) {
+           for (int j=0; j < column_size; j++) {
+               if (i==0) StdOut.print(j+" ");
+               if (j==0) s += (i+" ");
+               s += b[i][j] == true ? "* " : "  ";
+           }
+           if (i==0) StdOut.print("\n");
+           StdOut.println(s);
+           s="";
+      }
+  }
+}
+```
+
+
