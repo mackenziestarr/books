@@ -172,3 +172,38 @@ public class print2D {
 ```
 
 
+__1.1.12 What does the following code fragment print?__
+
+```java 
+int[] a = new int[10];
+for (int i = 0; i < 10; i++)
+    a[i] = 9 - i;
+for (int i = 0; i < 10; i++)
+    a[i] = a[a[i]];
+for (int i = 0; i < 10; i++) 
+    System.out.println(i); // => 0 1 2 3 4 5 6 7 8 9, separated by \n
+```
+
+__1.1.13 Write a code fragment to print the transposition (rows and columns changed) of a two-dimensional array with M rows and N columns.__
+
+```java
+public static void transpose(int rows, int columns) {
+    int[][] a = new int[rows][columns];
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns; j++) {
+            a[i][j] = j;
+            System.out.printf("%-3d", a[i][j]);
+        }
+        System.out.print("\n");
+    }
+    for (int i=0; i < columns; i++) {
+        for (int j = 0; j < rows; j++) {
+            System.out.printf("%-3d", a[j][i]);
+        }
+        System.out.print("\n");
+    }
+}           
+```
+
+__1.1.14 Write a static method lg() that takes an int value N as argument and returns the largest int not larger than the base-2 logarithm of N. Do not use Math.__
+
