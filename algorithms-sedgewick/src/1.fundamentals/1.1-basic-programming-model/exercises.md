@@ -207,3 +207,35 @@ public static void transpose(int rows, int columns) {
 
 __1.1.14 Write a static method lg() that takes an int value N as argument and returns the largest int not larger than the base-2 logarithm of N. Do not use Math.__
 
+```java
+public static int lg(int N) {
+    int value = 0;
+    while (N > 1) {
+        N/=2;
+        value++;
+    }
+    return value;
+}
+```
+
+__1.1.15 Write a static method histogram() that takes an array a[] of int values and an integer M as arguments and returns an array of length M whose ith entry is the num- ber of times the integer i appeared in the argument array. If the values in a[] are all between 0 and M–1, the sum of the values in the returned array should be equal to a.length.__
+
+```java
+public static int[] histogram(int[] a, int M) {
+    int[] h = new int[M];
+    for (int i=0; i<a.length; i++) {
+        h[a[i]]++; 
+    }
+    return h;
+}
+// histogram({0,0,1,2}, 4) => [2, 1, 1, 0] 
+```
+
+__1.1.16 Give the value of exR1(6):__
+
+```java
+public static String exR1(int n) {
+    if (n <= 0) return "";
+    return exR1(n-3) + n + exR1(n-2) + n;
+}
+```
