@@ -239,3 +239,24 @@ public static String exR1(int n) {
     return exR1(n-3) + n + exR1(n-2) + n;
 }
 ```
+where exR1 = a:
+
+* a6 = (a3 + "6" + a4 + "6")
+* a4 = (a1 + "4" + a2 + "4")
+* a3 = ("" + "3" + a1 + "3")
+* a2 = ("" + "2" + "" + "2")
+* a1 = ("" + "1" + "" + "1")
+* a6 = ("3113" + "6" + "114224" + "6")
+
+a6 = "311361142246"
+
+___1.1.17 Criticize the following recursive function:___
+
+```java
+public static String exR2(int n)
+{
+String s = exR2(n-3) + n + exR2(n-2) + n;
+if (n <= 0) return "";
+return s;
+}
+```
