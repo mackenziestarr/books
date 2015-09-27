@@ -260,3 +260,40 @@ if (n <= 0) return "";
 return s;
 }
 ```
+
+Invoking this function will result in a stack overflow error because the base case will never be reached.
+
+__1.1.18 Consider the following recursive function:__
+
+```java
+public static int mystery(int a, int b) {
+    if (b == 0)     return 0;
+    if (b % 2 == 0) return mystery(a+a, b/2);
+    return mystery(a+a, b/2) + a;
+}
+```
+
+_What are the values of mystery(2, 25) and mystery(3, 11)? Given positive integers a and b, describe what value mystery(a, b) computes. Answer the same question, but replace + with * and replace return 0 with return 1._
+
+```java
+mystery(2, 25)
+    1) =>  mystery(4, 12) + 2
+    2) =>  ( mystery(8, 6) ) + 2
+    3) =>  ( mystery(16, 3) + 16 ) + 2
+    4) =>  (( mystery(32, 1) + 32 ) + 16) + 2
+    5) =>  (( mystery(64, 0) + 32 ) + 16) + 2
+    6) =>  (0) + 32 + 16 + 2
+    = 50
+    
+mystery(3, 11)
+    1) => mystery(6, 5) + 3
+    2) => (mystery(12, 2) + 6) + 3
+    3) => (mystery(24, 1) + 6) + 3
+    4) => ((mystery(48,0) + 24) + 6) + 3
+    5) => (0) + 24 + 6 + 3
+    = 33
+```
+
+For position integers a and b, mystery(a, b) = a * b.
+When changing the addition operator to the multiplication operator and returning 1 in the base case, a grows exponentionally proportional to log2(b) but I can't figure out the exact formula right now.
+
