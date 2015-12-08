@@ -3,19 +3,17 @@
 _Algorithms 4th Edition [Sedgewick, Wayne]_
 
 __1.1.1 Give the value of each of the following expressions__
- 
+
 ```java
 ( 0 + 15 ) / 2 // => 7
 ```
-integer division rounds down to real number
+integer division rounds down to nearest integer
 
 ```java
 2.0e-6 * 100000000.1 // => 200.0000001
+// 2.0e-6 * (1.0e8 + 1.0e-1) = 2.0e2 + 2.0e-7
 ```
 answer can be obtained faster by expressing both answers in scientific notation and distributing the multiplier
-2.0e-6 * (1.0e8 + 1.0e-1)
-2.0e2 + 2.0e-7
-
 
 ```java
 true && false || true && true // => true
@@ -35,6 +33,7 @@ java supports operators across numeric types
 1 + 2 + "3" // => "33" [java.lang String]
 ```
 operators of the same precedence are evaluated left to right
+
 java supports coercion of numeric values into Strings
 
 __1.1.3 Write a program that takes three integer command-line arguments and prints equal if all three are equal, and not equal otherwise.__
@@ -284,7 +283,7 @@ mystery(2, 25)
     5) =>  (( mystery(64, 0) + 32 ) + 16) + 2
     6) =>  (0) + 32 + 16 + 2
     = 50
-    
+
 mystery(3, 11)
     1) => mystery(6, 5) + 3
     2) => (mystery(12, 2) + 6) + 3
@@ -294,6 +293,134 @@ mystery(3, 11)
     = 33
 ```
 
-For position integers a and b, mystery(a, b) = a * b.
+For positive integers a and b, mystery(a, b) = a * b.
 When changing the addition operator to the multiplication operator and returning 1 in the base case, a grows exponentionally proportional to log2(b) but I can't figure out the exact formula right now.
 
+__1.1.19 Run the following program on your computer__
+
+```java
+public class Fibonacci {
+    public static long F(int N) {
+        if (N == 0) return 0;
+        if (N == 1) return 1;
+        return F(N-1) + F(N-2);
+    }
+    public static void main(String[] args) {
+        for (int N = 0; N < 100; N++)
+        StdOut.println(N + " " + F(N));
+    }
+}
+```
+
+_What is the largest value of N for which this program takes less than 1 hour to compute for F(N)?_
+
+todo: answer this question
+
+_Develop a better implementation of F(N) that saves computed values in an array_
+
+```java 
+public class Fibonacci {
+    public static long memoizedFib(int N) {
+        long[] memo = new long[N+1];
+        return F(N, memo);
+    }
+    public static long F(int N, long[] memo) {
+        if (memo[N] == 0) {
+            if (N == 1) {
+                memo[N] = 1;
+            }
+            else if (N > 1) {
+                memo[N] = F(N-1, memo) + F(N-2, memo);
+            }
+        }
+        return memo[N];
+    }
+    public static void main(String[] args) {
+        for (int N = 0; N < 100; N++)
+            StdOut.println(N + " " + memoizedFib(N));
+    }
+}        
+```
+
+
+_1.1.20 Write a recursive static method that computes the value of ln (N!)_
+
+naive implementation, can result in stack overflow at high N values
+```java
+public static double factorialLog(int N) {
+   if (N == 1) return 0;
+   else return Math.log(N) + ln(N-1);
+}
+```
+
+_1.1.21 Write a program that reads in lines from standard input with each line containing a name and two integers and then uses printf() to print a table with a column of the names, the integers, and the result of dividing the first by the second, accurate to three decimal places. You could use a program like this to tabulate batting averages for baseball players or grades for students._
+
+```java
+public class table {
+    public static void main (String args[]) {
+        String[] lines = StdIn.readAllLines();
+        String[] line;
+        float result;
+        String format = "%s | %s | %s |  %.2f\n";
+        for (int i=0; i<lines.length; i++) {
+            line = lines[i].split(" ");
+            result = Float.parseFloat(line[1]) / Float.parseFloat(line[2]);
+            System.out.printf(format, line[0], line[1], line[2], result);
+        }
+    }
+}
+```
+
+_1.1.22 Write a version of Binary Search that uses the recursive rank() given on page 25 and traces the method calls. Each time the recursive method is called, print the argument values lo and hi, indented by the depth of the recursion. Hint: Add an argument to the recursive method that keeps track of the depth._
+
+```java
+
+public static String repeat(char c, int times) {
+    String s = "";
+    for (int i = 0; i < times; i++) {
+        s += c;
+    }
+    return s;
+}
+public static int rank(int key, int[] a) {
+    int iteration = 0;
+    return rank(key, a, 0, a.length - 1, iteration);
+}
+public static int rank(int key, int[] a, int lo, int hi, int iteration) {
+    // Index of key in a[], if present, is not smaller than lo
+    //                                  and not larger than hi.
+    System.out.printf("%slo:%d hi:%d\n", repeat(' ', iteration), lo, hi);
+    if (lo > hi) return -1;
+    int mid = lo + (hi - lo) / 2;
+    if      (key < a[mid]) return rank(key, a, lo, mid - 1, ++iteration);
+    else if (key > a[mid]) return rank(key, a, mid + 1, hi, ++iteration);
+    else                   return mid;
+}
+
+```
+
+_1.1.23 Add to the BinarySearch test client the ability to respond to a second argu- ment: + to print numbers from standard input that are not in the whitelist, - to print numbers that are in the whitelist._
+
+The main method from page p.47 can be written in the following manner to produce the desired result
+
+
+```java
+// [usage] java BinarySearch tinyW.txt + < tinyT.txt 
+public static void main(String[] args) {
+    int[] whitelist = In.readInts(args[0]);
+    Arrays.sort(whitelist);
+    String filter = "+";
+    if (args.length > 1) {
+        filter = args[1];
+    }
+    while (!StdIn.isEmpty()) {
+        int key = StdIn.readInt();
+        int index = rank(key, whitelist
+        if (index < 0 && filter.equals("+"))
+            StdOut.println(key);
+        else if (index >= 0 && filter.equals("-"))
+            StdOut.println(key);
+        }
+    }
+}
+```
