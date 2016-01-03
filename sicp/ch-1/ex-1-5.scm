@@ -24,7 +24,14 @@
 ; determines whether to evaluate the consequent or the alternative
 ; expression.)
 
+; With applicative-order evaluation, arguments are evaluated before
+; the body of the compound combination is invoked. In this particular
+; instance, invoking `test` results in the procedure hanging while
+; repeatedly evaluating "p"
 
-
-
+; With normal-order evaluation, arguments are not evaluated until
+; needed. This is also called "lazy" evaluation. With an intepreter
+; employing a normal-order evaluation strategy, `(test 0 (p))` would
+; return 0 because the second argument of the invocation is never
+; evaluated
 
